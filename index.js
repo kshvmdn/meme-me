@@ -40,12 +40,12 @@ var getPost = function(json) {
 var sr = rndval(subreddits);
 
 getJSON(sr).then(function(response) {
-	getMeme(response).then(function(url) {
-		console.log("Opening meme from " + chalk.blue("/r/" + sr) + "...");
-		open(url);
-	}).catch(function(e){
-		console.log('JSON parse error');
-	});
-}).catch(function(e){
-	console.log('URL request error');
+	return getPost(response)
+}).then(function(post){
+	console.log( chalk.white('Opening post from ' + chalk.green('/r/' + sr) + '...' ) );
+	open(post.url); ncp.copy(base + post.permalink);
+	process.exit(0);
+}).catch(function(err) {
+	console.log( chalk.white( chalk.red('Oops! ') +  chalk.bold('MemeME') + ' failed, try again!') );
+	process.exit(1);
 });
