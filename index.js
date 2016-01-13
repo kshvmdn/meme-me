@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const request = require('request');
 const open = require('open'); 
 const chalk = require('chalk');
+const ncp = require('copy-paste');
 
 const subreddits = ['meme', 'fffffffuuuuuuuuuuuu', 'AdviceAnimals'];
 var base = 'http://reddit.com/r/{}.json';
