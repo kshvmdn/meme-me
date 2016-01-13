@@ -27,7 +27,7 @@ var getPost = function(json) {
 		let posts = json.data.children
 
 		var post = rndval(posts).data
-		// verify that post isn't text post
+		// verify that post is img/gif (i.e. not text post)
 		while (post.distinguished != null) {
 			post = rndval(posts).data
 		}
