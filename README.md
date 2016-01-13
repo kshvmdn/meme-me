@@ -1,5 +1,5 @@
 # MemeME
-A command line tool to open a random meme from [reddit](http://reddit.com).
+A command line tool to open a random meme from [reddit](http://reddit.com). Available on [npm](https://www.npmjs.com/package/meme-me).
 
 ### Setup
 
