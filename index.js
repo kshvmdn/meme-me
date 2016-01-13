@@ -7,10 +7,10 @@ const open = require('open');
 const chalk = require('chalk');
 const ncp = require('copy-paste');
 
-const subreddits = ['meme', 'fffffffuuuuuuuuuuuu', 'AdviceAnimals'];
-var base = 'http://reddit.com/r/{}.json';
+const subreddits = ['meme', 'fffffffuuuuuuuuuuuu'];
+var base = 'http://reddit.com';
 
-var randomElement = function(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+var rndval = function(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 var getJSON = function(subreddit) {
 	return new Promise(function(resolve, reject) {
@@ -22,13 +22,14 @@ var getJSON = function(subreddit) {
 	});
 }
 
-var getMeme = function(json) {
+var getPost = function(json) {
 	return new Promise(function(resolve, reject) {
 		let posts = json.data.children
-		var post = randomElement(posts).data
+		
+		var post = rndval(posts).data
 		// verify that post isn't text post
 		while (post.distinguished != null) {
-			post = randomElement(posts).data
+			post = rndval(posts).data
 		}
 		// console.log(post.url)
 		if (post.url == undefined || post.url == '' || post.url == null) reject()
@@ -36,7 +37,8 @@ var getMeme = function(json) {
 	});
 }
 
-var sr = randomElement(subreddits);
+var sr = rndval(subreddits);
+
 getJSON(sr).then(function(response) {
 	getMeme(response).then(function(url) {
 		console.log("Opening meme from " + chalk.blue("/r/" + sr) + "...");
