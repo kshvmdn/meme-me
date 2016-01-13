@@ -9,12 +9,14 @@ const chalk = require('chalk');
 const subreddits = ['meme', 'fffffffuuuuuuuuuuuu', 'AdviceAnimals'];
 var base = 'http://reddit.com/r/{}.json';
 
+var randomElement = function(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
 var getJSON = function(subreddit) {
 	return new Promise(function(resolve, reject) {
 		request(base.replace('{}', subreddit), function (error, response, body) {
-			console.log(base.replace('{}', subreddit));
+			// console.log(base.replace('{}', subreddit));
 			if (error || response.statusCode != 200) reject();
-			else resolve(JSON.parse(body));
+			resolve(JSON.parse(body));
 		});
 	});
 }
@@ -22,21 +24,21 @@ var getJSON = function(subreddit) {
 var getMeme = function(json) {
 	return new Promise(function(resolve, reject) {
 		let posts = json.data.children
-		var post = json.data.children[Math.floor(Math.random() * posts.length)].data
-
-		// check if mod post
+		var post = randomElement(posts).data
+		// verify that post isn't text post
 		while (post.distinguished != null) {
-			post = json.data.children[Math.floor(Math.random() * posts.length)].data
+			post = randomElement(posts).data
 		}
-		console.log(post.url)
+		// console.log(post.url)
+		if (post.url == undefined || post.url == '' || post.url == null) reject()
 		resolve(post.url);
 	});
 }
 
-var sr = subreddits[Math.floor(Math.random() * subreddits.length)]
+var sr = randomElement(subreddits);
 getJSON(sr).then(function(response) {
 	getMeme(response).then(function(url) {
-		console.log("Loading meme from " + chalk.blue("/r/" + sr) + "...");
+		console.log("Opening meme from " + chalk.blue("/r/" + sr) + "...");
 		open(url);
 	}).catch(function(e){
 		console.log('JSON parse error');
