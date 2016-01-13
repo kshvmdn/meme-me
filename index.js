@@ -14,8 +14,7 @@ var rndval = function(arr) { return arr[Math.floor(Math.random() * arr.length)];
 
 var getJSON = function(subreddit) {
 	return new Promise(function(resolve, reject) {
-		request(base.replace('{}', subreddit), function (error, response, body) {
-			// console.log(base.replace('{}', subreddit));
+		request(base + '/r/' + subreddit + '.json', function (error, response, body) {
 			if (error || response.statusCode != 200) reject();
 			resolve(JSON.parse(body));
 		});
@@ -31,9 +30,9 @@ var getPost = function(json) {
 		while (post.distinguished != null) {
 			post = rndval(posts).data
 		}
-		// console.log(post.url)
-		if (post.url == undefined || post.url == '' || post.url == null) reject()
-		resolve(post.url);
+
+		if (post.url == undefined || post.url == '' || post.url == null) reject();
+		resolve(post);
 	});
 }
 
