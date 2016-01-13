@@ -1,10 +1,10 @@
 #! /usr/bin/env node
 "use strict";
 
-const Promise = require('bluebird'),
-			request = require('request'),
-			open = require('open'),
-			chalk = require('chalk');
+const Promise = require('bluebird'); 
+const request = require('request');
+const open = require('open'); 
+const chalk = require('chalk');
 
 const subreddits = ['meme', 'fffffffuuuuuuuuuuuu', 'AdviceAnimals'];
 var base = 'http://reddit.com/r/{}.json';
@@ -28,7 +28,7 @@ var getMeme = function(json) {
 		while (post.distinguished != null) {
 			post = json.data.children[Math.floor(Math.random() * posts.length)].data
 		}
-
+		console.log(post.url)
 		resolve(post.url);
 	});
 }
@@ -36,6 +36,7 @@ var getMeme = function(json) {
 var sr = subreddits[Math.floor(Math.random() * subreddits.length)]
 getJSON(sr).then(function(response) {
 	getMeme(response).then(function(url) {
+		console.log("Loading meme from " + chalk.blue("/r/" + sr) + "...");
 		open(url);
 	}).catch(function(e){
 		console.log('JSON parse error');
