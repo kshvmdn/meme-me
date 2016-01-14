@@ -1,6 +1,6 @@
 {
   "name": "meme-me",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A command line tool to open a random meme.",
   "main": "index.js",
   "scripts": {
@@ -11,13 +11,18 @@
     "url": "git+https://github.com/kshvmdn/meme-me.git"
   },
   "keywords": [
-    "dank",
     "memes",
     "node",
     "cli",
     "kshvmdn",
     "kashav",
-    "madan"
+    "madan",
+    "reddit",
+    "request",
+    "bluebird",
+    "copy-paste",
+    "chalk",
+    "open"
   ],
   "bin": {
     "meme-me": "./index.js"
