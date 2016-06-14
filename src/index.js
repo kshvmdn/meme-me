@@ -1,5 +1,4 @@
 #! /usr/bin/env node
-"use strict";
 
 const Promise = require('bluebird');
 const request = require('request');
@@ -22,36 +21,39 @@ const getJSON = (subreddit) => {
       if (error || response.statusCode != 200) {
         reject(new Error('Couldn\'t retrieve data.'));
       }
+
       resolve(body);
     });
   });
 }
 
-const getPost = (json) => {
+const getSubmission = (json) => {
   return new Promise((resolve, reject) => {
     let posts = json.data.children;
-
-    // Verify that the post isn't a self post (i.e. not a meme)
     let post;
     do {
       post = rndVal(posts).data;
-    } while (post.distinguished !== null);
+    } while (post.distinguished !== null); // Verify submission isn't a self-post
 
     if (post.url === undefined || post.url === '') {
       reject(new Error('Couldn\'t find img/gif URL.'));
     }
+
     resolve(post);
   });
 }
 
 let subreddit = rndVal(subreddits);
 
-return getJSON(subreddit)
-  .then((response) => getPost(response))
+getJSON(subreddit)
+  .then((response) => getSubmission(response))
   .then((post) => {
-    console.log(chalk.white(`Loading post from ${chalk.green('/r/' + subreddit)}...`));
-    open(post.url); // Open submission URL
-    ncp.copy(`${base}${post.permalink}`); // Copy thread permalink to clipboard
+    console.log(chalk.white(`Loading MEME from ${chalk.green('/r/' + subreddit)}...`));
+
+    // Open submission URL, copy permalink to clipboard
+    open(post.url);
+    ncp.copy(`${base}${post.permalink}`);
+
     process.exit(0);
   })
   .catch((err) => {
