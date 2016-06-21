@@ -29,7 +29,11 @@
   "bin": {
     "meme-me": "./dist/index.js"
   },
-  "author": "Kashav Madan <kshvmdn@gmail.com> (kshvmdn.me)",
+  "author": {
+    "name": "Kashav Madan",
+    "email": "kshvmdn@gmail.com",
+    "url": "http://kshvmdn.com"
+  },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/kshvmdn/meme-me/issues"
