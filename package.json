@@ -4,8 +4,8 @@
   "description": "A command line tool to open a random meme.",
   "main": "./src/index.js",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && babel src/ -d dist/",
+    "clean": "rimraf lib/",
+    "build": "npm run clean && babel src/ -d lib/",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -27,7 +27,7 @@
     "open"
   ],
   "bin": {
-    "meme-me": "./dist/index.js"
+    "meme-me": "./lib/index.js"
   },
   "author": "Kashav Madan <kshvmdn@gmail.com> (kshvmdn.me)",
   "license": "Apache-2.0",
